@@ -7,7 +7,7 @@ const userRouter = Router();
 userRouter.get("/", listUsers);
 userRouter.post(
   "/register",
-  isRequired(["name", "email", "password"]),
+  isRequired(["fullName", "email", "password"]),
   userRegister
 );
 
