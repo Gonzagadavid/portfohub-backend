@@ -7,7 +7,7 @@ export default class User {
 
   async getUser(filter) {
     const db = await connection();
-    db.collection("users").findOne(filter);
+    return db.collection("users").findOne(filter);
   }
 
   async createUser(user) {
