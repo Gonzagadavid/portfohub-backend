@@ -5,9 +5,9 @@ export default async function login(request, response, next) {
   const { email, password } = request.body;
 
   try {
-    const token = await loginService({ email, password });
+    const accessToken = await loginService({ email, password });
 
-    response.status(StatusCodes.ACCEPTED).json({ token });
+    response.status(StatusCodes.ACCEPTED).json({ accessToken });
   } catch (error) {
     next(error);
   }
