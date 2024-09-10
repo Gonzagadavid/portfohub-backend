@@ -1,17 +1,13 @@
-import connection from "./dbconnection.js";
-
-export default class User {
-  getUsers() {
-    return [{ name: "David" }, { name: "Danielle" }];
+export default class UserModel {
+  constructor(collection) {
+    this.collection = collection;
   }
 
   async getUser(filter) {
-    const db = await connection();
-    return db.collection("users").findOne(filter);
+    return this.collection.findOne(filter);
   }
 
   async createUser(user) {
-    const db = await connection();
-    db.collection("users").insertOne(user);
+    return this.collection.insertOne(user);
   }
 }

@@ -1,16 +1,33 @@
 import express from "express";
 import cors from "cors";
-import rootRouter from "../routes/index.js";
 import { handlerError } from "../middleware/error.js";
 
-const app = express();
+const { PORT = 3002 } = process.env;
+const origin = "*";
 
-app.use(express.json());
-app.use(cors({ origin: "*" }));
-app.use("/", rootRouter);
+const started = (port) => `Running... ${port}`;
 
-app.use(handlerError);
+class App {
+  constructor() {
+    this.app = express();
+    this.app.use(cors({ origin }));
+    this.app.use(express.json());
+  }
 
-app.listen(3002, () => {
-  console.log("Running... 3002");
-});
+  startServer(port) {
+    const actualPort = PORT || port;
+
+    try {
+      this.app.listen(actualPort, () => console.log(started(actualPort)));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  addRouter(router) {
+    this.app.use(router);
+    this.app.use(handlerError);
+  }
+}
+
+export default App;
