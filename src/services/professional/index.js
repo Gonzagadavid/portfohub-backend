@@ -1,7 +1,8 @@
-import Professional from "../../model/Professional.js";
-
-const professionalModel = new Professional();
-
-export default async function professional(userId, info) {
-  await professionalModel.createProfessionalInfo({ userId, info });
+export default class ProfessionalService {
+  constructor(professionalModel) {
+    this.model = professionalModel;
+  }
+  async create(userId, info) {
+    await this.model.create({ userId, info });
+  }
 }

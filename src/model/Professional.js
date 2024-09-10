@@ -1,8 +1,8 @@
-import connection from "./dbconnection.js";
-
-export default class Professional {
-  async createProfessionalInfo(info) {
-    const db = await connection();
-    db.collection("professional").insertOne(info);
+export default class ProfessionalModel {
+  constructor(collection) {
+    this.collection = collection;
+  }
+  async create(info) {
+    return this.collection.insertOne(info);
   }
 }
