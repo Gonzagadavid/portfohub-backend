@@ -1,8 +1,9 @@
 import App from "./app/index.js";
-import rootRouter from "./routes/index.js";
+import connection from "./model/dbconnection.js";
+import RouterRoot from "./routes/index.js";
 
-const app = new App();
-
-app.addRouter(rootRouter);
+const db = await connection();
+const router = new RouterRoot(db);
+const app = new App(router);
 
 app.startServer();

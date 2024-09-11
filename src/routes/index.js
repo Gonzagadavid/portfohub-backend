@@ -1,10 +1,17 @@
 import { Router } from "express";
-import userRouter from "./users/index.js";
-import professionalRouter from "./professional/index.js";
+import ProfessionalRouter from "./professional/index.js";
+import UserRouter from "./users/index.js";
 
-const rootRouter = Router();
+export default class RouterRoot {
+  constructor(db) {
+    this.router = Router();
+    this.userRouter = new UserRouter(db);
+    this.professionalRouter = new ProfessionalRouter(db);
+  }
 
-rootRouter.use("/users", userRouter);
-rootRouter.use("/professional", professionalRouter);
-
-export default rootRouter;
+  initialize() {
+    this.router.use("/users", this.userRouter.initialize());
+    this.router.use("/professional", this.professionalRouter.initialize());
+    return this.router;
+  }
+}
