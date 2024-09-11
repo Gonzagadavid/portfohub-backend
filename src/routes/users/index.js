@@ -3,20 +3,24 @@ import UserController from "../../controllers/users/index.js";
 import { isRequired } from "../../middleware/isRequired.js";
 import UserModel from "../../model/User.js";
 import UserService from "../../services/users/index.js";
-import connection from "../../model/dbconnection.js";
 
-const db = await connection();
-const collection = db.collection("users");
-const userModel = new UserModel(collection);
-const userService = new UserService(userModel);
-const userController = new UserController(userService);
-const userRouter = Router();
+export default class UserRouter {
+  constructor(db) {
+    this.router = Router();
+    this.collection = db.collection("users");
+    this.model = new UserModel(this.collection);
+    this.service = new UserService(this.model);
+    this.controller = new UserController(this.service);
+  }
 
-userRouter.post("/login", userController.login);
-userRouter.post(
-  "/register",
-  isRequired(["fullName", "email", "password"]),
-  userController.register
-);
+  initialize() {
+    this.router.post("/login", this.controller.login);
+    this.router.post(
+      "/register",
+      isRequired(["fullName", "email", "password"]),
+      this.controller.register
+    );
 
-export default userRouter;
+    return this.router;
+  }
+}
