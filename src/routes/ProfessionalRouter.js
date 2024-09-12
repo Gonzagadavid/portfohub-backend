@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { auth } from "../../middleware/auth.js";
-import ProfessionalModel from "../../model/Professional.js";
-import ProfessionalService from "../../services/professional/index.js";
-import ProfessionalController from "../../controllers/professional/index.js";
+import ProfessionalModel from "../model/ProfessionalModel.js";
+import ProfessionalService from "../services/ProfessionalService.js";
+import ProfessionalController from "../controllers/ProfessionalController.js";
+import { auth } from "../middleware/auth.js";
 
 export default class ProfessionalRouter {
   constructor(db) {

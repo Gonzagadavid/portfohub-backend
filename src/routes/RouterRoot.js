@@ -1,6 +1,6 @@
 import { Router } from "express";
-import ProfessionalRouter from "./professional/index.js";
-import UserRouter from "./users/index.js";
+import UserRouter from "./UserRouter.js";
+import ProfessionalRouter from "./ProfessionalRouter.js";
 
 export default class RouterRoot {
   constructor(db) {

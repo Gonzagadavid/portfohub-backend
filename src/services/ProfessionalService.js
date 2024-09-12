@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import ApiError from "../../ApiError/ApiError.js";
+import ApiError from "../ApiError/ApiError.js";
 
 export default class ProfessionalService {
   constructor(professionalModel) {

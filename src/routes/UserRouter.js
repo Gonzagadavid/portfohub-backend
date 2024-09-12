@@ -1,8 +1,8 @@
 import { Router } from "express";
-import UserController from "../../controllers/users/index.js";
-import { isRequired } from "../../middleware/isRequired.js";
-import UserModel from "../../model/User.js";
-import UserService from "../../services/users/index.js";
+import { isRequired } from "../middleware/isRequired.js";
+import UserModel from "../model/UserModel.js";
+import UserService from "../services/UserService.js";
+import UserController from "../controllers/UserController.js";
 
 export default class UserRouter {
   constructor(db) {

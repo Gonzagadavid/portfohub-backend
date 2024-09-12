@@ -20,7 +20,6 @@ export default class UserController {
   }
 
   async login(request, response, next) {
-    console.log(request.body);
     const { email, password } = request.body;
 
     try {

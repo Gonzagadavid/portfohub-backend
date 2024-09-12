@@ -1,6 +1,6 @@
-import ApiError from "../../ApiError/ApiError.js";
 import { StatusCodes } from "http-status-codes";
-import { hashValue } from "../utils/hash.js";
+import { hashValue } from "./utils/hash.js";
+import ApiError from "../ApiError/ApiError.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
