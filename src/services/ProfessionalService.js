@@ -6,8 +6,8 @@ export default class ProfessionalService {
     this.model = professionalModel;
   }
   async create(userId, info) {
-    const user = await this.model.findByUserId(userId);
-    if (user) {
+    const professionalData = await this.model.findByUserId(userId);
+    if (professionalData) {
       throw new ApiError({
         message: "User professional info already registered!",
         status: StatusCodes.CONFLICT
@@ -18,19 +18,19 @@ export default class ProfessionalService {
   }
 
   async getByUserId(userId) {
-    const user = await this.model.findByUserId(userId);
-    if (!user) {
+    const professionalData = await this.model.findByUserId(userId);
+    if (!professionalData) {
       throw new ApiError({
         message: "Not found professional info registered for this user",
         status: StatusCodes.NOT_FOUND
       });
     }
-    return user;
+    return professionalData;
   }
 
   async updateByUserId(userId, update) {
-    const user = await this.model.findByUserId(userId);
-    if (!user) {
+    const professionalData = await this.model.findByUserId(userId);
+    if (!professionalData) {
       throw new ApiError({
         message: "Not found professional info registered for this user",
         status: StatusCodes.NOT_FOUND
