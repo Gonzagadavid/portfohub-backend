@@ -37,7 +37,7 @@ export default class ProfessionalService {
       });
     }
 
-    await this.model.updateByUserId(userId, update);
+    await this.model.updateInfoByUserId(userId, update);
 
     return this.model.findByUserId(userId);
   }

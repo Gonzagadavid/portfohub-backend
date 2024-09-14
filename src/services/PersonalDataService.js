@@ -38,7 +38,7 @@ export default class PersonalDataService {
       });
     }
 
-    await this.model.updateByUserId(userId, update);
+    await this.model.updateFieldsByUserId(userId, update);
 
     return this.model.findByUserId(userId);
   }
