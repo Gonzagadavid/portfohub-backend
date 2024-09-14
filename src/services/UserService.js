@@ -10,7 +10,7 @@ export default class UserService {
   }
 
   async register({ fullName, email, password }) {
-    const exists = await this.model.getUser({ email });
+    const exists = await this.model.findOne({ email });
     if (exists) {
       throw new ApiError({
         message: `User ${email} already registered`,
@@ -18,7 +18,7 @@ export default class UserService {
       });
     }
     const hashedPassword = await hashValue(password, +process.env.SALT_HASH);
-    await this.model.createUser({
+    await this.model.create({
       fullName,
       email,
       password: hashedPassword
@@ -26,7 +26,7 @@ export default class UserService {
   }
 
   async login({ email, password }) {
-    const user = await this.model.getUser({ email });
+    const user = await this.model.findOne({ email });
 
     if (!user) {
       throw new ApiError({

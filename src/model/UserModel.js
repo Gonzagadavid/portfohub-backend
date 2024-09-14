@@ -1,13 +1,7 @@
-export default class UserModel {
+import { DBModel } from "./DBModel.js";
+
+export default class UserModel extends DBModel {
   constructor(collection) {
-    this.collection = collection;
-  }
-
-  async getUser(filter) {
-    return this.collection.findOne(filter);
-  }
-
-  async createUser(user) {
-    return this.collection.insertOne(user);
+    super(collection);
   }
 }
