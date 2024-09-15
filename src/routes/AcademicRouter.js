@@ -3,6 +3,8 @@ import AcademicModel from "../model/AcademicModel.js";
 import AcademicService from "../services/AcademicService.js";
 import AcademicController from "../controllers/AcademicController.js";
 import { auth } from "../middleware/auth.js";
+import { minLength } from "../middleware/minLength.js";
+import { isRequiredList } from "../middleware/isRequired.js";
 
 export default class AcademicRouter {
   constructor(db) {
@@ -15,9 +17,19 @@ export default class AcademicRouter {
 
   initialize() {
     this.router.use(auth);
-    this.router.post("/", this.controller.create);
+    this.router.post(
+      "/",
+      minLength(1),
+      isRequiredList(["institution", "degree", "startDate"]),
+      this.controller.create
+    );
     this.router.get("/", this.controller.getByUserId);
-    this.router.put("/", this.controller.update);
+    this.router.put(
+      "/",
+      minLength(1),
+      isRequiredList(["institution", "degree", "startDate"]),
+      this.controller.update
+    );
     return this.router;
   }
 }

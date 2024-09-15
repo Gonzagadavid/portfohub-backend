@@ -3,6 +3,7 @@ import { isRequired } from "../middleware/isRequired.js";
 import UserModel from "../model/UserModel.js";
 import UserService from "../services/UserService.js";
 import UserController from "../controllers/UserController.js";
+import validateEmail from "../middleware/validateEmail.js";
 
 export default class UserRouter {
   constructor(db) {
@@ -14,10 +15,11 @@ export default class UserRouter {
   }
 
   initialize() {
-    this.router.post("/login", this.controller.login);
+    this.router.post("/login", validateEmail, this.controller.login);
     this.router.post(
       "/register",
       isRequired(["fullName", "email", "password"]),
+      validateEmail,
       this.controller.register
     );
 
