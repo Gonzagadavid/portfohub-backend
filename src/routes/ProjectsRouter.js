@@ -3,6 +3,8 @@ import ProjectsModel from "../model/ProjectsModel.js";
 import ProjectsService from "../services/ProjectsService.js";
 import ProjectsController from "../controllers/ProjectsController.js";
 import { auth } from "../middleware/auth.js";
+import { minLength } from "../middleware/minLength.js";
+import { isRequiredList } from "../middleware/isRequired.js";
 
 export default class ProjectsRouter {
   constructor(db) {
@@ -15,9 +17,19 @@ export default class ProjectsRouter {
 
   initialize() {
     this.router.use(auth);
-    this.router.post("/", this.controller.create);
+    this.router.post(
+      "/",
+      minLength(1),
+      isRequiredList(["projectName", "link", "description"]),
+      this.controller.create
+    );
     this.router.get("/", this.controller.getByUserId);
-    this.router.put("/", this.controller.update);
+    this.router.put(
+      "/",
+      minLength(1),
+      isRequiredList(["projectName", "link", "description"]),
+      this.controller.update
+    );
     return this.router;
   }
 }

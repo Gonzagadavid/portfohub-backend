@@ -3,6 +3,8 @@ import ProfessionalModel from "../model/ProfessionalModel.js";
 import ProfessionalService from "../services/ProfessionalService.js";
 import ProfessionalController from "../controllers/ProfessionalController.js";
 import { auth } from "../middleware/auth.js";
+import { minLength } from "../middleware/minLength.js";
+import { isRequiredList } from "../middleware/isRequired.js";
 
 export default class ProfessionalRouter {
   constructor(db) {
@@ -15,9 +17,19 @@ export default class ProfessionalRouter {
 
   initialize() {
     this.router.use(auth);
-    this.router.post("/", this.controller.create);
+    this.router.post(
+      "/",
+      minLength(1),
+      isRequiredList(["company", "role", "description", "startDate"]),
+      this.controller.create
+    );
     this.router.get("/", this.controller.getByUserId);
-    this.router.put("/", this.controller.update);
+    this.router.put(
+      "/",
+      minLength(1),
+      isRequiredList(["company", "role", "description", "startDate"]),
+      this.controller.update
+    );
     return this.router;
   }
 }

@@ -5,6 +5,7 @@ import { auth } from "../middleware/auth.js";
 import PersonalDataService from "../services/PersonalDataService.js";
 import PersonalDataController from "../controllers/PersonalDataController.js";
 import { isRequired } from "../middleware/isRequired.js";
+import validateEmail from "../middleware/validateEmail.js";
 
 export default class ProfessionalRouter {
   constructor(db) {
@@ -19,27 +20,15 @@ export default class ProfessionalRouter {
     this.router.use(auth);
     this.router.post(
       "/",
-      isRequired([
-        "fullName",
-        "address",
-        "description",
-        "network",
-        "email",
-        "phrase"
-      ]),
+      isRequired(["fullName", "address", "description", "email"]),
+      validateEmail,
       this.controller.create
     );
     this.router.get("/", this.controller.getByUserId);
     this.router.put(
       "/",
-      isRequired([
-        "fullName",
-        "address",
-        "description",
-        "network",
-        "email",
-        "phrase"
-      ]),
+      isRequired(["fullName", "address", "description", "email"]),
+      validateEmail,
       this.controller.update
     );
     return this.router;
