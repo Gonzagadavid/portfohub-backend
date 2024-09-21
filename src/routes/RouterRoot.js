@@ -6,6 +6,7 @@ import SoftSkillsRouter from "./SoftSkillsRouter.js";
 import HardSkillsRouter from "./HardSkillsRouter.js";
 import AcademicRouter from "./AcademicRouter.js";
 import ProjectsRouter from "./ProjectsRouter.js";
+import PortfolioRouter from "./PortfolioRouter.js";
 
 export default class RouterRoot {
   constructor(db) {
@@ -17,6 +18,7 @@ export default class RouterRoot {
     this.hardSkillsRouter = new HardSkillsRouter(db);
     this.academicRouter = new AcademicRouter(db);
     this.projects = new ProjectsRouter(db);
+    this.portfolio = new PortfolioRouter(db);
   }
 
   initialize() {
@@ -27,6 +29,7 @@ export default class RouterRoot {
     this.router.use("/hard-skills", this.hardSkillsRouter.initialize());
     this.router.use("/academic", this.academicRouter.initialize());
     this.router.use("/projects", this.projects.initialize());
+    this.router.use("/portfolio", this.portfolio.initialize());
     return this.router;
   }
 }
