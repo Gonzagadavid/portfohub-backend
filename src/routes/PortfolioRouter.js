@@ -6,17 +6,35 @@ import PortfolioController from "../controllers/PortfolioController.js";
 import { auth } from "../middleware/auth.js";
 
 export default class PortfolioRouter {
-  constructor(db) {
-    this.router = Router();
+  constructor(
+    db,
+    professionalService,
+    personalDataService,
+    softSkillsService,
+    hardSkillsService,
+    academicService,
+    projectService
+  ) {
+    this.router = Router({ mergeParams: true });
     this.collection = db.collection("portfolio");
     this.model = new PortfolioModel(this.collection);
-    this.service = new PortfolioService(this.model);
+    this.service = new PortfolioService(
+      this.model,
+      professionalService,
+      personalDataService,
+      softSkillsService,
+      hardSkillsService,
+      academicService,
+      projectService
+    );
     this.controller = new PortfolioController(this.service);
   }
 
   initialize() {
+    this.router.get("/:pathname", this.controller.getPortfolio);
+
     this.router.use(auth);
-    this.router.post("/", this.controller.createPathname);
+    this.router.post("/pathname", this.controller.createPathname);
 
     return this.router;
   }

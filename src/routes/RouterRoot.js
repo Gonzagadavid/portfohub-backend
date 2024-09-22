@@ -18,7 +18,15 @@ export default class RouterRoot {
     this.hardSkillsRouter = new HardSkillsRouter(db);
     this.academicRouter = new AcademicRouter(db);
     this.projects = new ProjectsRouter(db);
-    this.portfolio = new PortfolioRouter(db);
+    this.portfolio = new PortfolioRouter(
+      db,
+      this.professionalRouter.service,
+      this.personalDataRouter.service,
+      this.softSkillsRouter.service,
+      this.hardSkillsRouter.service,
+      this.academicRouter.service,
+      this.projects.service
+    );
   }
 
   initialize() {
