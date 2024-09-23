@@ -31,10 +31,12 @@ export default class PortfolioRouter {
   }
 
   initialize() {
-    this.router.get("/:pathname", this.controller.getPortfolio);
+    this.router.get("/data/:pathname", this.controller.getPortfolio);
 
     this.router.use(auth);
+    this.router.get("/info", this.controller.getPortfolioInfo);
     this.router.post("/pathname", this.controller.createPathname);
+    this.router.put("/template", this.controller.addOrUpdateTemplate);
 
     return this.router;
   }
