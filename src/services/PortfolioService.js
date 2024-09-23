@@ -29,7 +29,7 @@ export default class PortfolioService {
       });
     }
 
-    const { userId } = pathnameFound;
+    const { userId, template } = pathnameFound;
 
     const professional = await this.professionalService.getByUserId(userId);
     const personalDataInfo = await this.personalDataService.getByUserId(userId);
@@ -41,6 +41,7 @@ export default class PortfolioService {
     const { userId: _, _id, ...personalData } = personalDataInfo;
 
     return {
+      template,
       professional: professional?.info ?? null,
       personalData,
       softSkills: softSkills?.info ?? null,
@@ -80,5 +81,24 @@ export default class PortfolioService {
     }
 
     await this.model.create({ userId, pathname });
+  }
+
+  async addOrUpdateTemplate(userId, template) {
+    const info = await this.model.findOne({ userId });
+    if (!info) {
+      throw new ApiError({
+        message: "Not found portfolio template registered"
+      });
+    }
+    await this.model.updateFieldsByUserId(userId, { template });
+  }
+
+  async getPortfolioInfo(userId) {
+    const info = await this.model.findOne({ userId });
+    if (!info) {
+      throw new ApiError({ message: "Not found portfolio info this user" });
+    }
+
+    return info;
   }
 }
