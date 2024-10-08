@@ -83,7 +83,6 @@ export default class PortfolioController {
       const isUsed = await this.service.pathnameIsUsed(pathname);
       response.status(isUsed ? StatusCodes.CONFLICT : StatusCodes.OK).end();
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -96,7 +95,6 @@ export default class PortfolioController {
       const { pathname } = await this.service.getPathnameByUserId(id);
       response.status(StatusCodes.OK).json({ pathname });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
