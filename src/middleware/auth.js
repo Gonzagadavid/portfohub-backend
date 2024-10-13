@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 export const auth = (request, response, next) => {
   const { authorization: token } = request.headers;
 
-  const secret = process.env.secret;
+  const secret = process.env.SECRET;
 
   if (!token) {
     return next({
@@ -19,3 +19,4 @@ export const auth = (request, response, next) => {
 
   next();
 };
+
