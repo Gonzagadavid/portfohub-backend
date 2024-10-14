@@ -15,7 +15,12 @@ export default class UserRouter {
   }
 
   initialize() {
-    this.router.post("/login", validateEmail, this.controller.login);
+    this.router.post(
+      "/login",
+      isRequired(["email", "password"]),
+      validateEmail,
+      this.controller.login
+    );
     this.router.post(
       "/register",
       isRequired(["fullName", "email", "password"]),
