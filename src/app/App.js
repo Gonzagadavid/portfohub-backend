@@ -13,13 +13,13 @@ class App {
     this.app.use(cors({ origin }));
     this.app.use(express.json());
     this.router = router.initialize();
+    this.app.use(this.router);
+    this.app.use(handlerError);
   }
 
   startServer(port) {
     const actualPort = PORT || port;
     try {
-      this.app.use(this.router);
-      this.app.use(handlerError);
       this.app.listen(actualPort, () => console.log(started(actualPort)));
     } catch (err) {
       console.log(err);
@@ -28,3 +28,4 @@ class App {
 }
 
 export default App;
+
