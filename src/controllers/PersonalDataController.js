@@ -10,14 +10,15 @@ export default class PersonalDataController {
   async create(request, response, next) {
     try {
       const { body, user } = request;
-      const { fullName, address, description, network, email, phrase } = body;
+      const { fullName, address, description, network, email, phrase, image } = body;
       await this.service.create(user.id, {
         fullName,
         address,
         description,
         network,
         email,
-        phrase
+        phrase,
+        image,
       });
       response.status(StatusCodes.CREATED).end();
     } catch (error) {
@@ -40,14 +41,15 @@ export default class PersonalDataController {
   async update(request, response, next) {
     try {
       const { body, user } = request;
-      const { fullName, address, description, network, email, phrase } = body;
+      const { fullName, address, description, network, email, phrase, image } = body;
       const updatedData = await this.service.updateByUserId(user.id, {
         fullName,
         address,
         description,
         network,
         email,
-        phrase
+        phrase,
+        image
       });
       response.status(StatusCodes.ACCEPTED).json(updatedData);
     } catch (error) {

@@ -20,12 +20,7 @@ export default class ProjectsService {
 
   async getByUserId(userId) {
     const projectsData = await this.model.findByUserId(userId);
-    if (!projectsData) {
-      throw new ApiError({
-        message: "Not found projects info registered for this user",
-        status: StatusCodes.NOT_FOUND
-      });
-    }
+
     return projectsData;
   }
 
