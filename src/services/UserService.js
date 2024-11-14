@@ -35,7 +35,7 @@ export default class UserService {
       });
     }
 
-    const passwordMatch = bcrypt.compare(password, user.password);
+    const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       throw new ApiError({
         message: "E-mail or password incorrect",
